@@ -13,5 +13,5 @@ git checkout master
 echo "changing permissions..."
 npm install
 echo "build end"
-chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
+# chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
 echo "Finished."
