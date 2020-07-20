@@ -19,12 +19,15 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+setTimeout(() => {
+  pullRepo();
+}, 1000);
 
 router.post('/', upload.any(), function (req, res, next) {
   let files = req.files;
   console.log('uploader me');
   // push
-  pushRepo()
+  pushRepo();
   res.json({ message: 'ok' });
 });
 
@@ -34,6 +37,21 @@ function pushRepo() {
     global.rootPath
   }"`;
   console.log(run);
+  exec(run, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  });
+}
+
+function pullRepo() {
+  const { exec } = require('child_process');
+  const run = `sh "${path.posix.join(global.rootPath, 'routes/pull.sh')}" "${
+    global.rootPath
+  }"`;
   exec(run, (err, stdout, stderr) => {
     if (err) {
       console.error(err);
