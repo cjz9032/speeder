@@ -22,6 +22,7 @@ var upload = multer({ storage: storage });
 
 router.post('/', upload.any(), function (req, res, next) {
   let files = req.files;
+  console.log('uploader me');
   // push
   pushRepo()
   res.json({ message: 'ok' });
