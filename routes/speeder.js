@@ -9,7 +9,7 @@ var handler = createHandler({ path: '/', secret: '402821051@qq.com' });
 router.all('/', function (req, res, next) {
   console.log('mmmmmmm path', req.path);
   handler(req, res, function (err) {
-    console.log('aaaaaaaaa', err);
+    console.log('aaaaaaaaa1', err);
     res.statusCode = 404;
     res.end('no such location');
   });
