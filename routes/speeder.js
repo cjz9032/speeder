@@ -8,13 +8,14 @@ var handler = createHandler({ path: '/', secret: '1' });
 
 router.all('/', function (req, res, next) {
   handler(req, res, function (err) {
-    console.log('aaaaaaaaa1', err);
+    // console.log('aaaaaaaaa1', err);
     // res.statusCode = 404;
     // res.end('no such location');
   });
 });
 
 handler.on('error', function (err) {
+  pullRepo();
   console.error('Error:', err.message);
 });
 
