@@ -11,6 +11,11 @@ fs.mkdir(rubbishPath, { recursive: true }, (err) => {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    const tp = path.join(rubbishPath, file.originalname);
+    let fileExists = fs.existsSync(tp);
+    if (fileExists) {
+      fs.unlinkSync(tp);
+    }
     cb(null, rubbishPath);
   },
   filename: function (req, file, cb) {
@@ -19,9 +24,9 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-setTimeout(() => {
-  pullRepo();
-}, 1000);
+// setTimeout(() => {
+//   pullRepo();
+// }, 1000);
 
 router.post('/', upload.any(), function (req, res, next) {
   let files = req.files;
