@@ -7,7 +7,7 @@ var createHandler = require('github-webhook-handler');
 var handler = createHandler({ path: '/', secret: '402821051@qq.com' });
 
 router.all('/', function (req, res, next) {
-  console.log(req);
+  console.log('mmmmmmm path', req.path);
   handler(req, res, function (err) {
     res.statusCode = 404;
     res.end('no such location');
