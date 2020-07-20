@@ -31,8 +31,8 @@ handler.on('push', function (event) {
 function pullRepo() {
   const { exec } = require('child_process');
   const run = `sh "${path.posix.join(
-    __dirname,
-    './deploy.sh'
+    global.rootPath,
+    'routes/deploy.sh'
   )}" "${global.rootPath}"`;
   console.log(run);
   exec(run, (err, stdout, stderr) => {

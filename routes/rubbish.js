@@ -20,11 +20,27 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-/* GET users listing. */
-
 router.post('/', upload.any(), function (req, res, next) {
   let files = req.files;
+  // push
+  pushRepo()
   res.json({ message: 'ok' });
 });
+
+function pushRepo() {
+  const { exec } = require('child_process');
+  const run = `sh "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
+    global.rootPath
+  }"`;
+  console.log(run);
+  exec(run, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  });
+}
 
 module.exports = router;
