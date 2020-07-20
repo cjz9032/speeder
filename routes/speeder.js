@@ -4,19 +4,18 @@ var path = require('path');
 
 var createHandler = require('github-webhook-handler');
 // rewrite path '/'
-var handler = createHandler({ path: '/', secret: '402821051@qq.com' });
+var handler = createHandler({ path: '/', secret: '1' });
 
 router.all('/', function (req, res, next) {
-  console.log('mmmmmmm path', req.path);
   handler(req, res, function (err) {
     console.log('aaaaaaaaa1', err);
-    res.statusCode = 404;
-    res.end('no such location');
+    // res.statusCode = 404;
+    // res.end('no such location');
   });
 });
 
 handler.on('error', function (err) {
-  console.error('xxxxxxxx Error:', err.message);
+  console.error('Error:', err.message);
 });
 
 handler.on('push', function (event) {
