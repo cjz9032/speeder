@@ -11,11 +11,6 @@ fs.mkdir(rubbishPath, { recursive: true }, (err) => {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // const tp = path.join(rubbishPath, file.originalname);
-    // let fileExists = fs.existsSync(tp);
-    // if (fileExists) {
-    //   fs.unlinkSync(tp);
-    // }
     cb(null, '/tmp/rubbish');
   },
   filename: function (req, file, cb) {
@@ -35,7 +30,7 @@ router.post('/', function (req, res) {
     let files = req.files;
     console.log('uploader me');
     // push
-    // pushRepo();
+    pushRepo();
     res.json({ message: 'ok' });
     // Everything went fine.
   });

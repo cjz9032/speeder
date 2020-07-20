@@ -1,5 +1,8 @@
 WEB_PATH=$1
 
+c=$1"/public/rubbish/"
+cp -rf /tmp/rubbish/* $c
+
 echo "Start push $WEB_PATH"
 cd $WEB_PATH
 git add .
