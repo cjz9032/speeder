@@ -6,8 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var rubbishRouter = require('./routes/rubbish');
 var speederRouter = require('./routes/speeder');
-
 var app = express();
 
 // view engine setup
@@ -20,8 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/rubbish', rubbishRouter);
+// app.use('/users', usersRouter);
 // webhooks
 app.use('/speeder', speederRouter);
 
