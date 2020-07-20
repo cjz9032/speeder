@@ -31,7 +31,7 @@ function pullRepo() {
   const { exec } = require('child_process');
   // todo care about pm2 restart child_process
   exec(
-    `sh "${path.posix.join(__dirname, './deploy.sh')}" "${__dirname}"`,
+    `sh "${path.posix.join(__dirname, './deploy.sh')}" "${path.posix.join(__dirname, '../')}"`,
     (err, stdout, stderr) => {
       if (err) {
         console.error(err);
