@@ -23,18 +23,26 @@ var storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).any();
+
+router.post('/', function (req, res) {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+    } else if (err) {
+      // An unknown error occurred when uploading.
+    }
+    let files = req.files;
+    console.log('uploader me');
+    // push
+    // pushRepo();
+    res.json({ message: 'ok' });
+    // Everything went fine.
+  });
+});
 // setTimeout(() => {
 //   pullRepo();
 // }, 1000);
-
-router.post('/', upload.any(), function (req, res, next) {
-  let files = req.files;
-  console.log('uploader me');
-  // push
-  pushRepo();
-  res.json({ message: 'ok' });
-});
 
 function pushRepo() {
   const { exec } = require('child_process');
