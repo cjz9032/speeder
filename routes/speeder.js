@@ -29,11 +29,10 @@ handler.on('push', function (event) {
 
 function pullRepo() {
   const { exec } = require('child_process');
-  // todo care about pm2 restart child_process
   const run = `sh "${path.posix.join(
     __dirname,
     './deploy.sh'
-  )}" "${path.posix.join(__dirname, '../')}"`;
+  )}" "${global.rootPath}"`;
   console.log(run);
   exec(run, (err, stdout, stderr) => {
     if (err) {

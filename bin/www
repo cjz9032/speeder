@@ -11,6 +11,8 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
+global.rootPath = path.resolve(path.posix.join(__dirname, '../'))
+
 const privateCrtFile = path.join(
   __dirname,
   '../https/1_30591743.xyz_bundle.crt'
