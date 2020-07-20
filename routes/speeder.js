@@ -8,7 +8,6 @@ var handler = createHandler({ path: '/', secret: '402821051@qq.com' });
 
 router.all('/', function (req, res, next) {
   handler(req, res, function (err) {
-    pullRepo();
     res.statusCode = 404;
     res.end('no such location');
   });
