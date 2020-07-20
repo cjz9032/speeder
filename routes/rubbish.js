@@ -11,12 +11,12 @@ fs.mkdir(rubbishPath, { recursive: true }, (err) => {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const tp = path.join(rubbishPath, file.originalname);
-    let fileExists = fs.existsSync(tp);
-    if (fileExists) {
-      fs.unlinkSync(tp);
-    }
-    cb(null, rubbishPath);
+    // const tp = path.join(rubbishPath, file.originalname);
+    // let fileExists = fs.existsSync(tp);
+    // if (fileExists) {
+    //   fs.unlinkSync(tp);
+    // }
+    cb(null, '/tmp/rubbish');
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
