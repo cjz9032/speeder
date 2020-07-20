@@ -15,7 +15,7 @@ router.all('/', function (req, res, next) {
 });
 
 handler.on('error', function (err) {
-  console.error('Error:', err.message);
+  console.error('xxxxxxxx Error:', err.message);
 });
 
 handler.on('push', function (event) {
