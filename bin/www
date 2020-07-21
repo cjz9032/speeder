@@ -4,14 +4,18 @@
  * Module dependencies.
  */
 
-var app = require('../app');
 var debug = require('debug')('myapp:httpsServer');
 var http = require('http');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-
+const os = require('os');
+global.isLocal = os.type() == 'Windows_NT'
 global.rootPath = path.resolve(path.posix.join(__dirname, '../'))
+
+// then start
+var app = require('../app');
+
 
 const privateCrtFile = path.join(
   __dirname,
@@ -30,7 +34,7 @@ const HTTPS_OPTOIN = {
   ...certOpts,
 };
 
-const SSL_PORT = 443;
+const SSL_PORT = global.isLocal ? 12443 : 443;
 app.set('port', SSL_PORT);
 
 const httpsServer = https.createServer(HTTPS_OPTOIN, app);

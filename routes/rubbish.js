@@ -4,14 +4,19 @@ var fs = require('fs');
 var router = express.Router();
 var multer = require('multer');
 const rubbishPath = path.join(__dirname, '../public/rubbish');
-
+const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
+const del = require('del');
 fs.mkdir(rubbishPath, { recursive: true }, (err) => {
+  if (err) throw err;
+});
+
+fs.mkdir(tmpPath, { recursive: true }, (err) => {
   if (err) throw err;
 });
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/tmp/rubbish');
+    cb(null, tmpPath);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -21,6 +26,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).any();
 
 router.post('/', function (req, res) {
+  del.sync([tmpPath + '*'], { force: true });
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
@@ -30,20 +36,17 @@ router.post('/', function (req, res) {
     let files = req.files;
     console.log('uploader me');
     // push
+
     pushRepo();
     res.json({ message: 'ok' });
-    // Everything went fine.
   });
 });
-// setTimeout(() => {
-//   pullRepo();
-// }, 1000);
 
 function pushRepo() {
   const { exec } = require('child_process');
-  const run = `sh "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
+  const run = `sh -x "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
     global.rootPath
-  }"`;
+  }" "${tmpPath}"`;
   console.log(run);
   exec(run, (err, stdout, stderr) => {
     if (err) {
@@ -57,7 +60,7 @@ function pushRepo() {
 
 function pullRepo() {
   const { exec } = require('child_process');
-  const run = `sh "${path.posix.join(global.rootPath, 'routes/pull.sh')}" "${
+  const run = `sh -x "${path.posix.join(global.rootPath, 'routes/pull.sh')}" "${
     global.rootPath
   }"`;
   exec(run, (err, stdout, stderr) => {

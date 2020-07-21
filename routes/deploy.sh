@@ -1,4 +1,7 @@
 WEB_PATH=$1
+WEB_WWW=$1"/bin/www"
+LOCAL=$2
+LOCAL_IS='1'
 WEB_USER='root'
 WEB_USERGROUP='root'
 
@@ -12,5 +15,13 @@ git checkout master
 echo "changing permissions..."
 npm install
 echo "build end"
-chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
+
+
+if [ "$LOCAL" != "$LOCAL_IS" ]
+then
+    chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
+    pm2 restart www
+fi
+
+
 echo "Finished."
