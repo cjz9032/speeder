@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
   });
 });
 
-router.post('/clearRubbish', function (req, res) {
+router.get('/clear', function (req, res) {
   del.sync([rubbishPath + '/*'], { force: true });
   pushRepo();
   res.json({ message: 'ok' });
