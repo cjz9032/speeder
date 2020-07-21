@@ -8,7 +8,7 @@ var path = require('path');
 
 router.get('/force', function (req, res, next) {
   buildRepo();
-  res.json({ status: 0, msg: 'ok' });
+  res.json({ status: 111, msg: 'ok' });
 });
 
 router.post('/', function (req, res, next) {
