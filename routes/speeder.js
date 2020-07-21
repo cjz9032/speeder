@@ -12,7 +12,7 @@ router.get('/force', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  if (req.body && req.body.head_commit.message !== 'chore: upload') {
+  if (req.body && req.body.head_commit && req.body.head_commit.message !== 'chore: upload') {
     buildRepo();
     res.json({ status: 0, msg: 'ok' });
   } else {
