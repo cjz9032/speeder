@@ -6,6 +6,7 @@ var multer = require('multer');
 const rubbishPath = path.join(__dirname, '../public/rubbish');
 const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
 const del = require('del');
+const utils = require('../utils');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,7 +23,7 @@ var upload = multer({ storage: storage }).any();
 
 router.post('/', function (req, res) {
   del.sync([tmpPath + '/*'], { force: true });
-  upload(req, res, function (err) {
+  upload(req, res, async function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
     } else if (err) {
@@ -31,7 +32,6 @@ router.post('/', function (req, res) {
     let files = req.files;
     console.log('uploader me');
     // push
-
     pushRepo();
     res.json({ message: 'ok' });
   });
@@ -45,11 +45,19 @@ router.get('/clear', function (req, res) {
   res.json({ message: 'ok' });
 });
 
-function pushRepo() {
+async function pushRepo() {
+  const {
+    body,
+  } = await got(
+    'https://api.github.com/repos/cjz9032/speeder/releases/latest',
+    { responseType: 'json' }
+  );
+  const nextVer = utils.getVerStr(utils.getVerNum(body.tag_name) + 1);
+
   const { exec } = require('child_process');
   const run = `sh -x "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
     global.rootPath
-  }" "${tmpPath}"`;
+  }" "${tmpPath}" ${nextVer}`;
   console.log(run);
   exec(run, (err, stdout, stderr) => {
     if (err) {
