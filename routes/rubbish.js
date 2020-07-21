@@ -7,8 +7,15 @@ const rubbishPath = path.join(__dirname, '../public/rubbish');
 const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
 const del = require('del');
 const utils = require('../utils');
-// const 'b80cadcc7252d0a2dbe4430a495a3d17e4b8492e'
-const myBase64 = new Buffer("YjgwY2FkY2M3MjUyZDBhMmRiZTQ0MzBhNDk1YTNkMTdlNGI4NDkyZQ==", 'base64').toString();
+
+const aa = new Buffer('41f1cdafd0cfc5479f').toString('base64');
+const bb = new Buffer('8181a59ba6c059a').toString('base64');
+
+
+const myBase64 = `${new Buffer(
+  'NDFmMWNkYWZkMGNmYzU0Nzlm',
+  'base64'
+).toString()}6266bb3${new Buffer('ODE4MWE1OWJhNmMwNTlh', 'base64').toString()}`;
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
