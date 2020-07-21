@@ -11,10 +11,7 @@ const obj = {
   },
   getVerStr: function getVerStr(num) {
     const str = obj.PrefixZero(num, 6);
-    const list = str.split('.');
-    return list.reduce((sum, cur, index) => {
-      return cur * Math.pow(100, list.length - index - 1) + sum;
-    }, 0);
+    return insertPlacehoderInterval(str, '.', 2);
   },
   /**
    * 自定义函数名：PrefixZero
