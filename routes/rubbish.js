@@ -6,13 +6,6 @@ var multer = require('multer');
 const rubbishPath = path.join(__dirname, '../public/rubbish');
 const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
 const del = require('del');
-fs.mkdir(rubbishPath, { recursive: true }, (err) => {
-  if (err) throw err;
-});
-
-fs.mkdir(tmpPath, { recursive: true }, (err) => {
-  if (err) throw err;
-});
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,6 +15,8 @@ var storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+
+genWorkerFolder();
 
 var upload = multer({ storage: storage }).any();
 
@@ -45,6 +40,7 @@ router.post('/', function (req, res) {
 router.get('/clear', function (req, res) {
   del.sync([tmpPath + '/*'], { force: true });
   del.sync([rubbishPath + '/*'], { force: true });
+  genWorkerFolder();
   pushRepo();
   res.json({ message: 'ok' });
 });
@@ -77,6 +73,16 @@ function pullRepo() {
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
     }
+  });
+}
+
+function genWorkerFolder() {
+  fs.mkdir(rubbishPath, { recursive: true }, (err) => {
+    if (err) throw err;
+  });
+
+  fs.mkdir(tmpPath, { recursive: true }, (err) => {
+    if (err) throw err;
   });
 }
 
