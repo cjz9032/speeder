@@ -7,6 +7,7 @@ const rubbishPath = path.join(__dirname, '../public/rubbish');
 const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
 const del = require('del');
 const utils = require('../utils');
+const got = require('got');
 
 const aa = new Buffer('41f1cdafd0cfc5479f').toString('base64');
 const bb = new Buffer('8181a59ba6c059a').toString('base64');
