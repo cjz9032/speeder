@@ -42,6 +42,12 @@ router.post('/', function (req, res) {
   });
 });
 
+router.post('/clearRubbish', function (req, res) {
+  del.sync([rubbishPath + '/*'], { force: true });
+  pushRepo();
+  res.json({ message: 'ok' });
+});
+
 function pushRepo() {
   const { exec } = require('child_process');
   const run = `sh -x "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
