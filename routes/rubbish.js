@@ -7,6 +7,8 @@ const rubbishPath = path.join(__dirname, '../public/rubbish');
 const tmpPath = global.isLocal ? 'd:/tmp/rubbish' : '/tmp/rubbish';
 const del = require('del');
 const utils = require('../utils');
+// const 'b80cadcc7252d0a2dbe4430a495a3d17e4b8492e'
+const myBase64 = new Buffer("YjgwY2FkY2M3MjUyZDBhMmRiZTQ0MzBhNDk1YTNkMTdlNGI4NDkyZQ==", 'base64').toString();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -57,7 +59,7 @@ async function pushRepo() {
   const { exec } = require('child_process');
   const run = `sh -x "${path.posix.join(global.rootPath, 'routes/push.sh')}" "${
     global.rootPath
-  }" "${tmpPath}" ${nextVer}`;
+  }" "${tmpPath}" ${nextVer} ${myBase64}`;
   console.log(run);
   exec(run, (err, stdout, stderr) => {
     if (err) {
