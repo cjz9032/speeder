@@ -26,7 +26,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).any();
 
 router.post('/', function (req, res) {
-  del.sync([tmpPath + '*'], { force: true });
+  del.sync([tmpPath + '/*'], { force: true });
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
