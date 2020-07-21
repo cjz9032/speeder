@@ -43,6 +43,7 @@ router.post('/', function (req, res) {
 });
 
 router.get('/clear', function (req, res) {
+  del.sync([tmpPath + '/*'], { force: true });
   del.sync([rubbishPath + '/*'], { force: true });
   pushRepo();
   res.json({ message: 'ok' });
