@@ -63,9 +63,9 @@ async function plusReady() {
   );
   const isUpdateVer = await updateBundleVerIfNeed();
   if (isUpdateVer) {
-    // notify reload?
-    plus.nativeUI.confirm(`Reload ${isUpdateVer} > ${curVer}?`, function (e) {
-      e.index === 0 && webview.reload(true);
+    // reload
+    plus.nativeUI.confirm(`Reload ${isUpdateVer} > ${curVer} ...`, function (e) {
+      webview.reload(true);
     });
   }
 
