@@ -35,6 +35,16 @@ res.download(path.join(__dirname, 'public/me.txt'), (err)=>{
 
 });
 });
+
+app.get('/download-and-conf', (req, res)=>{
+
+  res.download(path.join(__dirname, 'public/Kitsunebi-android.conf.txt'), (err)=>{
+  
+      console.log(err);
+  
+  });
+  });
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
